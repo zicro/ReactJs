@@ -8,6 +8,13 @@ const reducer = (state, action) =>{
             return{
                 contacts: state.contacts.filter((contact)=> contact.id !== action.payload)
             };
+        case 'ADD_CONTACT':
+            return{
+                // ...state.contacts / permet de recuperer tous les objects qui se trouve 
+                // dans state contacts
+                //* action.payload : permet de ajouter le dernier element saisie
+                contacts: [action.payload, ...state.contacts]
+            };
     
         default:
            return state;

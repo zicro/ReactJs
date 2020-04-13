@@ -30,17 +30,17 @@ import {Consumer} from '../context';
                     const {dispatch} = value;
                     
                     return (
-                        <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">{name} 
+                        <div className="card">
+                    <div className="card-body">
+                        <h4 className="card-title">{name} 
                         <i onClick={this.showContact.bind(this, name)} className="fa fa-sort-down" style={{cursor:'pointer'}}></i>
                         <i className="fa fa-times" style={{color:'red', float:'right', cursor:'pointer'}}
                          area-hidden="true" onClick={this.onDeleteClick.bind(this, id, dispatch)}></i></h4>
-                        <p class="card-text">
+                        <p className="card-text">
                             {(this.state.showContactToggle) ? (
-                                <ul class="list-group">
-                                    <li class="list-group-item">{tel}</li>
-                                    <li class="list-group-item">{mail}</li>
+                                <ul className="list-group">
+                                    <li className="list-group-item">{tel}</li>
+                                    <li className="list-group-item">{mail}</li>
                                 </ul>
                             ) : null}
                             
@@ -63,7 +63,7 @@ Contact.defaultProps = {
 }
 
 Contact.propTypes = {
-    contact: PropTypes.object.isRequired,
+    contact: PropTypes.object,
     
 }
 export default Contact;
