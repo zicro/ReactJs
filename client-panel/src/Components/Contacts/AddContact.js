@@ -44,6 +44,9 @@ class AddContact extends Component {
                     phone:'',
                     errors: {}
                 })
+
+                // apres l'ajout rederection vers la page Accueil
+                this.props.history.push('/');
     }
     render() {
         const {name,email,phone, errors} = this.state;
