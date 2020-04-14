@@ -5,10 +5,27 @@ import TextInputGroup from '../helpers/TextInputGroup';
 class AddContact extends Component {
     state = {   name:'',
                 email:'',
-                phone:''}
+                phone:'',
+                errors: []
+            }
     onChangeInput = (e) => this.setState({[e.target.name]: e.target.value});
     submit = (dispatch, size, e) =>{
             e.preventDefault();
+
+            if (this.state.name == "") {
+                this.setState({errors: {name: "The name is empty."}})
+                return;
+            }
+
+            if (this.state.email == "") {
+                this.setState({errors: {email: "The email is empty."}})
+                return;
+            }
+
+            if (this.state.phone == "") {
+                this.setState({errors: {phone: "The phone is empty."}})
+                return;
+            }
 
             dispatch({
             type: 'ADD_CONTACT',
@@ -24,10 +41,12 @@ class AddContact extends Component {
             this.setState({   
                     name:'',
                     email:'',
-                    phone:''})
+                    phone:'',
+                    errors: {}
+                })
     }
     render() {
-        const {name,email,phone} = this.state;
+        const {name,email,phone, errors} = this.state;
 
         return(
             <Consumer>
@@ -47,6 +66,7 @@ class AddContact extends Component {
                                             type="text" 
                                             value={name}
                                             onChange={this.onChangeInput}
+                                            error={errors.name}
                                          />
                                          <TextInputGroup 
                                             label="Email" 
@@ -54,6 +74,7 @@ class AddContact extends Component {
                                             type="email" 
                                             value={email}
                                             onChange={this.onChangeInput}
+                                            error={errors.email}
                                          />
                                          <TextInputGroup 
                                             label="Phone" 
@@ -61,6 +82,7 @@ class AddContact extends Component {
                                             type="text" 
                                             value={phone}
                                             onChange={this.onChangeInput}
+                                            error={errors.phone}
                                          />
                                         
                                             
