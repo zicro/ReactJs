@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import axios from 'axios';
 const Context = React.createContext();
 
 const reducer = (state, action) =>{
@@ -31,6 +31,12 @@ export  class Provider extends Component {
                 {id:3, name:"ramo", tel:"+21264444", mail:"larhnimi@git.net"}
             ],
             dispatch: action => this.setState(state =>reducer(state, action))
+        }
+        // get date from json file on load du component
+        componentWillMount(){
+            axios.get('https://jsonplaceholder.typicode.com/users')
+                 .then(res => console.log(res))
+                 .catch(err => console.error(err));
         }
     render() {
         return (
