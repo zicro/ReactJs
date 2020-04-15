@@ -32,8 +32,8 @@ class AddContact extends Component {
             payload: {
                 id: size+1,
                 name: this.state.name,
-                tel: this.state.phone,
-                mail: this.state.email
+                phone: this.state.phone,
+                email: this.state.email
                 
             }
             })

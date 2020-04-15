@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './contact.css';
 import {Consumer} from '../context';
-
+import axios from 'axios'; 
  class Contact extends Component {
      state = {
          showContactToggle: false
@@ -15,6 +15,7 @@ import {Consumer} from '../context';
         });
      }
      onDeleteClick = (id, dispatch) => {
+
          dispatch({
              type: 'DELETE_CONTACT',
              payload: id
@@ -22,7 +23,7 @@ import {Consumer} from '../context';
      }
     render() {
         
-        const {id,name,tel,mail} = this.props.data;
+        const {id,name,phone,email} = this.props.data;
 
         return(
             <Consumer>
@@ -39,8 +40,8 @@ import {Consumer} from '../context';
                         <p className="card-text">
                             {(this.state.showContactToggle) ? (
                                 <ul className="list-group">
-                                    <li className="list-group-item">{tel}</li>
-                                    <li className="list-group-item">{mail}</li>
+                                    <li className="list-group-item">{phone}</li>
+                                    <li className="list-group-item">{email}</li>
                                 </ul>
                             ) : null}
                             
@@ -58,8 +59,8 @@ import {Consumer} from '../context';
 
 Contact.defaultProps = {
     name: "My name",
-    tel: "+212066",
-    mail: "test@mail.com"
+    phone: "+212066",
+    email: "test@mail.com"
 }
 
 Contact.propTypes = {

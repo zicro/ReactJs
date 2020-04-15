@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 const Context = React.createContext();
-
 const reducer = (state, action) =>{
     switch (action.type) {
         case 'DELETE_CONTACT':
@@ -26,17 +25,23 @@ export  class Provider extends Component {
         //ON peut recuperer les donnes a partir du DB ici
         state = {
             contacts:[
-                {id:1, name:"omar", tel:"+21265558", mail:"larhnimi@git.net"},
-                {id:2, name:"maro", tel:"+21266666", mail:"larhnimi@git.net"},
-                {id:3, name:"ramo", tel:"+21264444", mail:"larhnimi@git.net"}
+                {id:1, name:"omar", phone:"+21265558", email:"larhnimi@git.net"},
+                {id:2, name:"maro", phone:"+21266666", email:"larhnimi@git.net"},
+                {id:3, name:"ramo", phone:"+21264444", email:"larhnimi@git.net"}
             ],
             dispatch: action => this.setState(state =>reducer(state, action))
         }
+
+        
         // get date from json file on load du component
         componentWillMount(){
-            axios.get('https://jsonplaceholder.typicode.com/users')
-                 .then(res => console.log(res))
-                 .catch(err => console.error(err));
+             axios.get('https://jsonplaceholder.typicode.com/users')
+                  .then(res => this.setState({
+                     contacts: res.data
+                   }))
+                  .catch(err => console.error(err));
+
+     
         }
     render() {
         return (
