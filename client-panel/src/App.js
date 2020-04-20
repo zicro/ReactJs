@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import AddContact from './Components/Contacts/AddContact';
+import EditContact from './Components/Contacts/EditContact';
 import Navbar from './Components/navbar/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -22,6 +23,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Contacts} />
           <Route exact path="/contact/add" component={AddContact} />
+          <Route exact path="/contact/edit/:id" component={EditContact} />
           <Route exact path="/about/:id" component={About} />
          
           <Route component={PageNotFound} />

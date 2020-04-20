@@ -3,12 +3,31 @@ import {Consumer} from '../context';
 import TextInputGroup from '../helpers/TextInputGroup';
 import axios from 'axios';
 
-class AddContact extends Component {
+class EditContact extends Component {
     state = {   name:'',
                 email:'',
                 phone:'',
                 errors: []
             }
+    
+    // pour l'affichage des donnes du contact qu'on a l'id passer dans URL
+    // recuperer les donnes du contact a Modifier, on se pasant sur le
+    // id qui est  passer par le lien URL (/contact/id/1)
+    async componentDidMount(){
+        // on recupere le id from the URL
+        const id = this.props.match.params.id;
+        // From the APi, we use axios and get the inforamtion about user with ID
+        const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+
+        this.setState({
+            name: res.data.name,
+            email: res.data.email,
+            phone: res.data.phone
+        });
+
+    }
+
+
     onChangeInput = (e) => this.setState({[e.target.name]: e.target.value});
     submit = async (dispatch, size, e) =>{
             e.preventDefault();
@@ -29,7 +48,7 @@ class AddContact extends Component {
             }
 
             // get the data from the Formulaire and set it to newContact
-            const newContact = {
+            const updtContact = {
                 name: this.state.name,
                 phone: this.state.phone,
                 email: this.state.email
@@ -39,9 +58,9 @@ class AddContact extends Component {
             /**
              * Methode 1 : 
              */
-            // axios.post('https://jsonplaceholder.typicode.com/users', newContact)
+            // axios.put('https://jsonplaceholder.typicode.com/users', updtContact)
             //      .then(res => dispatch({
-            //         type: 'ADD_CONTACT',
+            //         type: 'EDIT_CONTACT',
             //         payload: res.data
             //         }))
 
@@ -49,11 +68,13 @@ class AddContact extends Component {
             /** 
              * Methode 2 :
              */
+            // get the ID of the Contact that will be updated
+            const id = this.props.match.params.id;
             try {
-                const res = await axios.post('https://jsonplaceholder.typicode.com/users', newContact)
+                const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updtContact)
                 
                 dispatch({
-                    type: 'ADD_CONTACT',
+                    type: 'EDIT_CONTACT',
                     payload: res.data
                 })
             } catch (error) {
@@ -85,7 +106,7 @@ class AddContact extends Component {
                             <div className="card">
                                 
                                 <div className="card-body">
-                                    <h4 className="card-title">Add Contact</h4>
+                                    <h4 className="card-title">Edit Contact</h4>
                                     <div className="card-text">
                                         <TextInputGroup 
                                             label="Name" 
@@ -113,7 +134,7 @@ class AddContact extends Component {
                                          />
                                         
                                             
-                                        <button className="btn btn-success btn-block">Add New Contact</button>
+                                        <button className="btn btn-primary btn-block">Update Contact</button>
                                     </div>
                                 </div>
                             </div>
@@ -127,4 +148,4 @@ class AddContact extends Component {
     }
 }
 
-export default  AddContact;
+export default  EditContact;
